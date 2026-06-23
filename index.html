@@ -8,7 +8,6 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
 <style>
-
 body{
 margin:0;
 padding:15px;
@@ -119,6 +118,9 @@ flex:1;
 text-align:center;
 }
 
+.download-btn{
+margin-top:15px;
+}
 </style>
 </head>
 
@@ -141,10 +143,6 @@ placeholder="Enter Your Name">
 
 <button onclick="galleryInput.click()">
 🖼️ Upload Photo
-</button>
-
-<button onclick="downloadPost()">
-📥 Download Post
 </button>
 
 <input
@@ -206,6 +204,10 @@ class="postimg">
 </div>
 
 </div>
+
+<button class="download-btn" onclick="downloadPost()">
+📥 Download Facebook Post
+</button>
 
 </div>
 
