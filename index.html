@@ -1,21 +1,152 @@
-<!-- TOP LOGO -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Facebook Post Generator</title>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+<style>
+body{
+margin:0;
+padding:15px;
+background:#f0f2f5;
+font-family:Arial,sans-serif;
+}
+
+.container{
+max-width:500px;
+margin:auto;
+}
+
+.logo{
+display:block;
+width:220px;
+max-width:90%;
+margin:0 auto 15px;
+}
+
+.controls{
+background:#fff;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+input{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:1px solid #ddd;
+border-radius:8px;
+box-sizing:border-box;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+background:#1877f2;
+color:#fff;
+border:none;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.post{
+background:#fff;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
+}
+
+.header{
+display:flex;
+align-items:center;
+padding:12px;
+}
+
+.avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+object-fit:cover;
+margin-right:10px;
+}
+
+.name{
+font-size:16px;
+font-weight:bold;
+}
+
+.time{
+font-size:12px;
+color:#65676b;
+}
+
+.text{
+padding:0 12px 12px;
+font-size:15px;
+line-height:1.5;
+}
+
+.postimg{
+width:100%;
+display:block;
+}
+
+.stats{
+padding:10px 12px;
+border-top:1px solid #ddd;
+border-bottom:1px solid #ddd;
+color:#65676b;
+font-size:14px;
+}
+
+.actions{
+display:flex;
+justify-content:space-around;
+padding:12px;
+font-weight:bold;
+color:#65676b;
+}
+
+.actions div{
+flex:1;
+text-align:center;
+}
+
+.download-btn{
+margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Top Logo -->
 <img src="images%20(2).png" class="logo">
 
+<!-- Controls -->
 <div class="controls">
-
-<!-- REMOVE THIS LINE -->
-<!-- <h2>Mango Media Films</h2> -->
 
 <input
 type="text"
 id="nameInput"
 placeholder="Enter Your Name">
 
-<button onclick="cameraInput.click()">
+<button onclick="document.getElementById('cameraInput').click()">
 📷 Take Photo
 </button>
 
-<button onclick="galleryInput.click()">
+<button onclick="document.getElementById('galleryInput').click()">
 🖼️ Upload Photo
 </button>
 
@@ -34,8 +165,8 @@ style="display:none;">
 
 </div>
 
-
-<!-- FACEBOOK POST -->
+<!-- Facebook Post -->
+<div class="post" id="post">
 
 <div class="header">
 
@@ -46,8 +177,9 @@ src="images%20(2).png">
 
 <div>
 
-<!-- CHANGE THIS -->
-<div class="name" id="username"></div>
+<div class="name" id="username">
+Mango Media Films
+</div>
 
 <div class="time">
 Today at 10:00 AM
@@ -56,3 +188,91 @@ Today at 10:00 AM
 </div>
 
 </div>
+
+<div class="text">
+Life is better when you're surrounded by good friends and great memories. ✨
+
+<br><br>
+
+Cherish the moments that make you smile. 😊
+</div>
+
+<img
+src="IMG_20260624_032308.jpg"
+class="postimg">
+
+<div class="stats">
+👍 ❤️ 😮 You and 99 others · 100 Comments
+</div>
+
+<div class="actions">
+<div>Like</div>
+<div>Comment</div>
+<div>Share</div>
+</div>
+
+</div>
+
+<button
+class="download-btn"
+onclick="downloadPost()">
+📥 Download Facebook Post
+</button>
+
+</div>
+
+<script>
+
+function loadPhoto(file){
+
+if(!file) return;
+
+const reader = new FileReader();
+
+reader.onload = function(e){
+document.getElementById('avatar').src = e.target.result;
+}
+
+reader.readAsDataURL(file);
+
+}
+
+document.getElementById('cameraInput')
+.addEventListener('change', function(e){
+loadPhoto(e.target.files[0]);
+});
+
+document.getElementById('galleryInput')
+.addEventListener('change', function(e){
+loadPhoto(e.target.files[0]);
+});
+
+document.getElementById('nameInput')
+.addEventListener('input', function(){
+
+document.getElementById('username').innerText =
+this.value || 'Mango Media Films';
+
+});
+
+function downloadPost(){
+
+html2canvas(document.getElementById('post'))
+.then(function(canvas){
+
+const link = document.createElement('a');
+
+link.download = 'facebook-post.png';
+
+link.href = canvas.toDataURL('image/png');
+
+link.click();
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
