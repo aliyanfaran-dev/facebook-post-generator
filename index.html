@@ -1,13 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Facebook Post Generator</title>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f0f2f5;
+padding:20px;
+margin:0;
+}
+.box{
+max-width:500px;
+margin:auto;
+background:#fff;
+padding:20px;
+border-radius:12px;
+}
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+box-sizing:border-box;
+}
+button{
+width:100%;
+padding:12px;
+background:#1877f2;
+color:white;
+border:none;
+border-radius:8px;
+}
+.post{
+margin-top:20px;
+border:1px solid #ddd;
+background:#fff;
+}
+.header{
+display:flex;
+align-items:center;
+padding:10px;
+}
+.avatar{
+width:50px;
+height:50px;
+border-radius:50%;
+object-fit:cover;
+margin-right:10px;
+}
+.postimg{
+width:100%;
+display:block;
+}
+.name{
+font-weight:bold;
+}
+</style>
 </head>
+
 <body>
 
-<h1>Facebook Post Generator</h1>
+<div class="box">
 
-<p>If you can see this page, GitHub Pages is working!</p>
+<h2>Facebook Post Generator</h2>
+
+<input id="nameInput" placeholder="Enter Name">
+
+<input type="file" id="photoInput">
+
+<div class="post">
+
+<div class="header">
+<img id="avatar" class="avatar" src="https://via.placeholder.com/100">
+<div>
+<div id="username" class="name">Your Name</div>
+<div>Today at 10:00 AM</div>
+</div>
+</div>
+
+<div style="padding:10px">
+Life is better when you're surrounded by good friends and great memories. ✨
+</div>
+
+<img src="group-photo.jpg" class="postimg">
+
+</div>
+
+</div>
+
+<script>
+nameInput.oninput=function(){
+username.innerText=this.value||"Your Name";
+}
+
+photoInput.onchange=function(e){
+const reader=new FileReader();
+reader.onload=function(){
+avatar.src=reader.result;
+}
+reader.readAsDataURL(e.target.files[0]);
+}
+</script>
 
 </body>
 </html>
