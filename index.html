@@ -2,102 +2,109 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Facebook Post Generator</title>
 
 <style>
 body{
-    margin:0;
-    padding:20px;
-    background:#f0f2f5;
-    font-family:Arial,sans-serif;
+margin:0;
+padding:15px;
+background:#f0f2f5;
+font-family:Arial,sans-serif;
 }
 
 .container{
-    max-width:500px;
-    margin:auto;
+max-width:500px;
+margin:auto;
 }
 
 .controls{
-    background:white;
-    padding:15px;
-    border-radius:12px;
-    margin-bottom:15px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
+background:#fff;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
-.controls h2{
-    margin-top:0;
+h2{
+margin-top:0;
 }
 
 input{
-    width:100%;
-    padding:12px;
-    margin-top:8px;
-    margin-bottom:12px;
-    box-sizing:border-box;
+width:100%;
+padding:12px;
+margin-bottom:10px;
+box-sizing:border-box;
+border:1px solid #ddd;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+background:#1877f2;
+color:white;
+border:none;
+border-radius:8px;
+font-weight:bold;
 }
 
 .post{
-    background:white;
-    border-radius:12px;
-    overflow:hidden;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
+background:#fff;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 2px 10px rgba(0,0,0,.1);
 }
 
 .header{
-    display:flex;
-    align-items:center;
-    padding:12px;
+display:flex;
+align-items:center;
+padding:12px;
 }
 
 .avatar{
-    width:48px;
-    height:48px;
-    border-radius:50%;
-    object-fit:cover;
-    margin-right:10px;
+width:48px;
+height:48px;
+border-radius:50%;
+object-fit:cover;
+margin-right:10px;
 }
 
 .name{
-    font-weight:bold;
-    font-size:15px;
+font-weight:bold;
+font-size:15px;
 }
 
 .time{
-    color:#65676b;
-    font-size:12px;
+font-size:12px;
+color:#65676b;
 }
 
 .text{
-    padding:0 12px 12px;
-    font-size:15px;
-    line-height:1.4;
+padding:0 12px 12px;
+line-height:1.5;
 }
 
 .postimg{
-    width:100%;
-    display:block;
+width:100%;
+display:block;
 }
 
 .stats{
-    padding:10px 12px;
-    color:#65676b;
-    border-bottom:1px solid #ddd;
-    font-size:14px;
+padding:10px 12px;
+border-top:1px solid #ddd;
+border-bottom:1px solid #ddd;
+color:#65676b;
+font-size:14px;
 }
 
 .actions{
-    display:flex;
-    justify-content:space-around;
-    padding:12px;
-    color:#65676b;
-    font-weight:bold;
-}
-
-.actions div{
-    flex:1;
-    text-align:center;
+display:flex;
+justify-content:space-around;
+padding:12px;
+font-weight:bold;
+color:#65676b;
 }
 </style>
 </head>
@@ -107,24 +114,56 @@ input{
 <div class="container">
 
 <div class="controls">
+
 <h2>Facebook Post Generator</h2>
 
-<input type="text" id="nameInput" placeholder="Enter Name">
+<input
+type="text"
+id="nameInput"
+placeholder="Enter Name">
 
-<input type="file" id="photoInput" accept="image/*">
+<button onclick="cameraInput.click()">
+📷 Take Photo
+</button>
+
+<button onclick="galleryInput.click()">
+🖼️ Upload Photo
+</button>
+
+<input
+type="file"
+id="cameraInput"
+accept="image/*"
+capture="user"
+style="display:none;">
+
+<input
+type="file"
+id="galleryInput"
+accept="image/*"
+style="display:none;">
+
 </div>
 
 <div class="post">
 
 <div class="header">
-<img id="avatar"
+
+<img
+id="avatar"
 class="avatar"
 src="https://via.placeholder.com/100">
 
 <div>
-<div class="name" id="username">Your Name</div>
-<div class="time">Today at 10:00 AM</div>
+<div class="name" id="username">
+Your Name
 </div>
+
+<div class="time">
+Today at 10:00 AM
+</div>
+</div>
+
 </div>
 
 <div class="text">
@@ -152,24 +191,45 @@ class="postimg">
 </div>
 
 <script>
-document.getElementById('nameInput').addEventListener('input',function(){
-document.getElementById('username').innerText=this.value||'Your Name';
-});
 
-document.getElementById('photoInput').addEventListener('change',function(e){
+function loadPhoto(file){
 
-const file=e.target.files[0];
 if(!file)return;
 
 const reader=new FileReader();
 
-reader.onload=function(ev){
-document.getElementById('avatar').src=ev.target.result;
+reader.onload=function(e){
+
+document.getElementById('avatar').src=e.target.result;
+
 }
 
 reader.readAsDataURL(file);
 
+}
+
+document.getElementById('cameraInput')
+.addEventListener('change',function(e){
+
+loadPhoto(e.target.files[0]);
+
 });
+
+document.getElementById('galleryInput')
+.addEventListener('change',function(e){
+
+loadPhoto(e.target.files[0]);
+
+});
+
+document.getElementById('nameInput')
+.addEventListener('input',function(){
+
+document.getElementById('username').innerText=
+this.value||'Your Name';
+
+});
+
 </script>
 
 </body>
